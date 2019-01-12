@@ -112,12 +112,7 @@
                 46: 'delete'
             },
             keyState = {},
-
-            /********************************************************************************
-             *
-             * Private functions
-             *
-             ********************************************************************************/
+            
             getMoment = function (d) {
                 var tzEnabled = false,
                     returnMoment,
@@ -576,10 +571,12 @@
             fillHijriMonths = function () {
                 var spans = [],
                     monthsShort = viewDate.clone().startOf('hy').hour(12); // hour is changed to avoid DST issues in some browsers
+
                 while (monthsShort.iYear() === viewDate.iYear()) {
                     spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('iMMM')));
                     monthsShort.add(1, 'iMonth');
                 }
+
                 widget.find('.datepicker-months td').empty().append(spans);
             },
 
@@ -671,12 +668,22 @@
                 if (options.maxDate && options.maxDate.isBefore(endYear, 'hy')) {
                     yearsViewHeader.eq(2).addClass('disabled');
                 }
+                
+                
+                while (!startYear.isAfter(endYear, 'iy')) {
 
-                while (!startYear.isAfter(endYear, 'hy')) {
+                    //here we need to fix the infinte loop
+                    console.log(endYear);
+
+                    if (startYear < -1 || endYear < -1)
+                        break;
+
                     html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+
                     startYear.add(1, 'iYear');
                 }
 
+                
                 yearsView.find('td').html(html);
             },
 
@@ -2716,6 +2723,8 @@
                 }
             },
             right: function (widget) {
+            
+
                 if (!widget) {
                     return;
                 }

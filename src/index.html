@@ -50,14 +50,15 @@
         });
 
         function initHijrDatePicker() {
+
             $("#hijri-date-input").datetimepicker({
                 locale: "ar-sa",
                 format: "iYYYY-iMM-iDD",
                 dayViewHeaderFormat: "iMMMM iYYYY",
                 allowInputToggle: true,
-                showTodayButton: true,
+                showTodayButton: false,
                 useCurrent: false,
-                showClear: true,
+                showClear: false,
                 isRTL: true,
                 keepOpen: false,
                 hijri: true,
