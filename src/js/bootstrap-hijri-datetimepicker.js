@@ -112,7 +112,7 @@
                 46: 'delete'
             },
             keyState = {},
-            
+
             getMoment = function (d) {
                 var tzEnabled = false,
                     returnMoment,
@@ -668,22 +668,33 @@
                 if (options.maxDate && options.maxDate.isBefore(endYear, 'hy')) {
                     yearsViewHeader.eq(2).addClass('disabled');
                 }
-                
-                
-                while (!startYear.isAfter(endYear, 'iy')) {
+
+
+                while (!startYear.isAfter(endYear, 'hy')) {
 
                     //here we need to fix the infinte loop
-                    console.log(endYear);
 
-                    if (startYear < -1 || endYear < -1)
+                    var endYearStr = endYear.format("iYYYY");
+                    var startYearStr = startYear.format("iYYYY");
+
+                    console.log("End Year: " + endYear.format("iYYYY"));
+
+                    console.log("Start Year: " + startYear.format("iYYYY"));
+
+                    if (endYearStr === "1355" || startYearStr === "1355") {
+                        
+                        endYear = new Date(1950, 1, 1);
+                        startYear = endYear;
+
                         break;
+                    }
 
                     html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
 
                     startYear.add(1, 'iYear');
                 }
 
-                
+
                 yearsView.find('td').html(html);
             },
 
@@ -2723,7 +2734,7 @@
                 }
             },
             right: function (widget) {
-            
+
 
                 if (!widget) {
                     return;
