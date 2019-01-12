@@ -1,32 +1,18 @@
 /*! version : 4.17.37
  =========================================================
  bootstrap-datetimejs
+ 
  https://github.com/Eonasdan/bootstrap-datetimepicker
+
+ Modified by: @balbarak
+ 
  Copyright (c) 2015 Jonathan Peterson
  =========================================================
  */
 /*
  The MIT License (MIT)
 
- Copyright (c) 2015 Jonathan Peterson
 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
  */
 /*global define:false */
 /*global exports:false */
@@ -72,22 +58,22 @@
             datePickerModes = [
                 {
                     clsName: 'days',
-                    navFnc: (options.hijri ? 'hMonth' : 'M'),
+                    navFnc: (options.hijri ? 'iMonth' : 'M'),
                     navStep: 1
                 },
                 {
                     clsName: 'months',
-                    navFnc: (options.hijri ? 'hYear' : 'y'),
+                    navFnc: (options.hijri ? 'iYear' : 'y'),
                     navStep: 1
                 },
                 {
                     clsName: 'years',
-                    navFnc: (options.hijri ? 'hYear' : 'y'),
+                    navFnc: (options.hijri ? 'iYear' : 'y'),
                     navStep: 10
                 },
                 {
                     clsName: 'decades',
-                    navFnc: (options.hijri ? 'hYear' : 'y'),
+                    navFnc: (options.hijri ? 'iYear' : 'y'),
                     navStep: 100
                 }
             ],
@@ -198,41 +184,41 @@
 
             getDatePickerTemplate = function () {
                 var headTemplate = $('<thead>')
-                        .append($('<tr>')
-                            .append($('<th>').addClass('prev').attr('data-action', 'previous')
-                                .append($('<span>').addClass(options.icons.previous))
-                                )
-                            .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
-                            .append($('<th>').addClass('next').attr('data-action', 'next')
-                                .append($('<span>').addClass(options.icons.next))
-                                )
-                            ),
+                    .append($('<tr>')
+                        .append($('<th>').addClass('prev').attr('data-action', 'previous')
+                            .append($('<span>').addClass(options.icons.previous))
+                        )
+                        .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
+                        .append($('<th>').addClass('next').attr('data-action', 'next')
+                            .append($('<span>').addClass(options.icons.next))
+                        )
+                    ),
                     contTemplate = $('<tbody>')
                         .append($('<tr>')
                             .append($('<td>').attr('colspan', (options.calendarWeeks ? '8' : '7')))
-                            );
+                        );
 
                 return [
                     $('<div>').addClass('datepicker-days')
                         .append($('<table>').addClass('table-condensed')
                             .append(headTemplate)
                             .append($('<tbody>'))
-                            ),
+                        ),
                     $('<div>').addClass('datepicker-months')
                         .append($('<table>').addClass('table-condensed')
                             .append(headTemplate.clone())
                             .append(contTemplate.clone())
-                            ),
+                        ),
                     $('<div>').addClass('datepicker-years')
                         .append($('<table>').addClass('table-condensed')
                             .append(headTemplate.clone())
                             .append(contTemplate.clone())
-                            ),
+                        ),
                     $('<div>').addClass('datepicker-decades')
                         .append($('<table>').addClass('table-condensed')
                             .append(headTemplate.clone())
                             .append(contTemplate.clone())
-                            )
+                        )
                 ];
             },
 
@@ -296,7 +282,7 @@
 
             getTimePickerTemplate = function () {
                 var hoursView = $('<div>').addClass('timepicker-hours')
-                        .append($('<table>').addClass('table-condensed')),
+                    .append($('<table>').addClass('table-condensed')),
                     minutesView = $('<div>').addClass('timepicker-minutes')
                         .append($('<table>').addClass('table-condensed')),
                     secondsView = $('<div>').addClass('timepicker-seconds')
@@ -590,9 +576,9 @@
             fillHijriMonths = function () {
                 var spans = [],
                     monthsShort = viewDate.clone().startOf('hy').hour(12); // hour is changed to avoid DST issues in some browsers
-                while (monthsShort.hYear() === viewDate.hYear()) {
-                    spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('hMMM')));
-                    monthsShort.add(1, 'hMonth');
+                while (monthsShort.iYear() === viewDate.iYear()) {
+                    spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('iMMM')));
+                    monthsShort.add(1, 'iMonth');
                 }
                 widget.find('.datepicker-months td').empty().append(spans);
             },
@@ -612,7 +598,7 @@
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
 
-                monthsViewHeader.eq(1).text(viewDate.hYear());
+                monthsViewHeader.eq(1).text(viewDate.iYear());
 
                 if (!isValid(viewDate.clone().add(1, 'y'), 'y')) {
                     monthsViewHeader.eq(2).addClass('disabled');
@@ -680,15 +666,15 @@
                     yearsViewHeader.eq(0).addClass('disabled');
                 }
 
-                yearsViewHeader.eq(1).text(startYear.hYear() + '-' + endYear.hYear());
+                yearsViewHeader.eq(1).text(startYear.iYear() + '-' + endYear.iYear());
 
                 if (options.maxDate && options.maxDate.isBefore(endYear, 'hy')) {
                     yearsViewHeader.eq(2).addClass('disabled');
                 }
 
                 while (!startYear.isAfter(endYear, 'hy')) {
-                    html += '<span data-action="selectYear" class="year' + (startYear.hYear() === date.hYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.hYear() + '</span>';
-                    startYear.add(1, 'hYear');
+                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                    startYear.add(1, 'iYear');
                 }
 
                 yearsView.find('td').html(html);
@@ -854,14 +840,14 @@
                 daysView.find('.disabled').removeClass('disabled');
                 daysViewHeader.eq(1).text(viewDate.format(options.dayViewHeaderFormat));
 
-                if (!isValid(viewDate.clone().subtract(1, 'hMonth'), 'hMonth')) {
+                if (!isValid(viewDate.clone().subtract(1, 'iMonth'), 'iMonth')) {
                     daysViewHeader.eq(0).addClass('disabled');
                 }
-                if (!isValid(viewDate.clone().add(1, 'hMonth'), 'hMonth')) {
+                if (!isValid(viewDate.clone().add(1, 'iMonth'), 'iMonth')) {
                     daysViewHeader.eq(2).addClass('disabled');
                 }
 
-                currentDate = viewDate.clone().startOf('hMonth').startOf('week');
+                currentDate = viewDate.clone().startOf('iMonth').startOf('week');
                 for (i = 0; i < 42; i++) { // always display 42 days (should be show 6 weeks)
 
                     if (currentDate.weekday() === 0) {
@@ -872,10 +858,10 @@
                         html.push(row);
                     }
                     clsName = '';
-                    if (currentDate.hMonth() < viewDate.hMonth()) {
+                    if (currentDate.iMonth() < viewDate.iMonth()) {
                         clsName += ' old';
                     }
-                    if (currentDate.hMonth() > viewDate.hMonth()) {
+                    if (currentDate.iMonth() > viewDate.iMonth()) {
                         clsName += ' new';
                     }
                     if (currentDate.isSame(date, 'd') && !unset) {
@@ -890,7 +876,7 @@
                     if (currentDate.day() === 5 || currentDate.day() === 6) {
                         clsName += ' weekend';
                     }
-                    row.append('<td data-action="selectDay" data-mday="' + currentDate.date() + '" data-day="' + currentDate.format('L') + '" class="day' + clsName + '">' + currentDate.hDate() + '</td>');
+                    row.append('<td data-action="selectDay" data-mday="' + currentDate.date() + '" data-day="' + currentDate.format('L') + '" class="day' + clsName + '">' + currentDate.iDate() + '</td>');
                     //row.append('<td data-action="selectDay" data-day="' + currentDate.date() + '" class="day' + clsName + '">' + currentDate.hDate() + '</td>');
                     currentDate.add(1, 'd');
                 }
@@ -1117,13 +1103,13 @@
                 selectMonth: function (e) {
                     var month = $(e.target).closest('tbody').find('span').index($(e.target));
                     if (options.hijri) {
-                        viewDate.hMonth(month);
+                        viewDate.iMonth(month);
                     } else {
                         viewDate.month(month);
                     }
                     if (currentViewMode === minViewModeNumber) {
                         if (options.hijri) {
-                            setValue(date.clone().year(viewDate.hYear()).month(viewDate.hMonth()));
+                            setValue(date.clone().year(viewDate.iYear()).month(viewDate.iMonth()));
                         } else {
                             setValue(date.clone().year(viewDate.year()).month(viewDate.month()));
                         }
@@ -1135,7 +1121,7 @@
                         fillDate();
                     }
                     if (options.hijri) {
-                        viewUpdate('hM');
+                        viewUpdate('iM');
                     } else {
                         viewUpdate('M');
                     }
@@ -1144,13 +1130,13 @@
                 selectYear: function (e) {
                     var year = parseInt($(e.target).text(), 10) || 0;
                     if (options.hijri) {
-                        viewDate.hYear(year);
+                        viewDate.iYear(year);
                     } else {
                         viewDate.year(year);
                     }
                     if (currentViewMode === minViewModeNumber) {
                         if (options.hijri) {
-                            setValue(date.clone().hYear(viewDate.hYear()));
+                            setValue(date.clone().iYear(viewDate.iYear()));
                         } else {
                             setValue(date.clone().year(viewDate.year()));
                         }
@@ -1171,13 +1157,13 @@
                 selectDecade: function (e) {
                     var year = parseInt($(e.target).data('selection'), 10) || 0;
                     if (options.hijri) {
-                        viewDate.hYear(year);
+                        viewDate.iYear(year);
                     } else {
                         viewDate.year(year);
                     }
                     if (currentViewMode === minViewModeNumber) {
                         if (options.hijri) {
-                            setValue(date.clone().hYear(viewDate.hYear()));
+                            setValue(date.clone().iYear(viewDate.iYear()));
                         } else {
                             setValue(date.clone().year(viewDate.year()));
                         }
@@ -1197,15 +1183,15 @@
 
                 selectDay: function (e) {
                     var day = viewDate.clone();
-                    
+
                     if (options.hijri) {
                         if ($(e.target).is('.old')) {
-                            day.subtract(1, 'hMonth');
+                            day.subtract(1, 'iMonth');
                         }
                         if ($(e.target).is('.new')) {
-                            day.add(1, 'hMonth');
+                            day.add(1, 'iMonth');
                         }
-                        setValue(day.hDate(parseInt($(e.target).text(), 10)));
+                        setValue(day.iDate(parseInt($(e.target).text(), 10)));
                     } else {
                         if ($(e.target).is('.old')) {
                             day.subtract(1, 'M');
@@ -1983,7 +1969,7 @@
                 }
                 return options.hijri;
             }
-            if (typeof(hijri) !== "boolean") {
+            if (typeof (hijri) !== "boolean") {
                 throw new TypeError('hijri() expects a boolean parameter');
             }
 

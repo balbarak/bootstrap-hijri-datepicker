@@ -13,7 +13,6 @@
 
     <div class="container">
         <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h2>Checkout form</h2>
             <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
         </div>
@@ -22,9 +21,9 @@
             <div class="col-md-6">
 
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
+                    <div class="input-group date">
 
-                        <input type='text' class="form-control" />
+                        <input type='text' class="form-control" id="hijri-date-input" />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -37,8 +36,37 @@
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/momentjs.js"></script>
+
+    <script src="js/moment-with-locales.js"></script>
     <script src="js/moment-hijri.js"></script>
     <script src="js/bootstrap-hijri-datetimepicker.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            initHijrDatePicker();
+
+        });
+
+        function initHijrDatePicker() {
+            $("#hijri-date-input").datetimepicker({
+                locale: "ar-sa",
+                format: "iYYYY-iMM-iDD",
+                dayViewHeaderFormat: "iMMMM iYYYY",
+                allowInputToggle: true,
+                showTodayButton: true,
+                useCurrent: false,
+                showClear: true,
+                isRTL: true,
+                keepOpen: false,
+                hijri: true,
+                debug: false
+            });
+        }
+
+
+    </script>
 
 </body>
 </html>
