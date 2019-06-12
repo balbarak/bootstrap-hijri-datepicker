@@ -43,6 +43,8 @@
 
     <script type="text/javascript">
 
+        var picker;
+
         $(function () {
 
             initHijrDatePicker();
@@ -51,22 +53,22 @@
 
         function initHijrDatePicker() {
 
-            $("#hijri-date-input").hijriDateTimePicker({
+          picker =  $("#hijri-date-input").hijriDateTimePicker({
                 locale: "ar-sa",
 
-                format: "DD-MM-YYYY",
-                hijriFormat:"iYYYY-iMM-iDD",
+                //format: "DD-MM-YYYY",
+                //hijriFormat:"iYYYY-iMM-iDD",
 
-                dayViewHeaderFormat: "MMMM YYYY",
-                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-
+                //dayViewHeaderFormat: "MMMM YYYY",
+                //hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                showSwitcher: true,
+                
                 allowInputToggle: true,
                 showTodayButton: false,
                 useCurrent: true,
-                showClear: false,
-                isRTL: false,
+                isRTL: true,
                 keepOpen: false,
-                hijri: true,
+                hijri: false,
                 debug: true,
                 showClear: true,
                 showTodayButton: true,

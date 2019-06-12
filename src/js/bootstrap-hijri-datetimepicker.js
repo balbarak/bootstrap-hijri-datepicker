@@ -59,7 +59,7 @@
             datePickerModes = [
                 {
                     clsName: 'days',
-                    navFnc: (options.hijri ? 'iMonth' : 'M'),
+                    navFnc: (options.hijri ? 'iMonth' : 'Month'),
                     navStep: 1
                 },
                 {
@@ -312,6 +312,10 @@
                 if (options.showClose) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'close', 'title': options.tooltips.close }).append($('<span>').html(options.icons.close))));
                 }
+
+                if (options.showSwitcher) {
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'switchDate', 'title': options.tooltips.close }).append($('<span>').html('هجري/ميلادي'))));
+                }
                 return $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
             },
 
@@ -461,6 +465,7 @@
             },
 
             notifyEvent = function (e) {
+                
                 if (e.type === 'dp.change' && ((e.date && e.date.isSame(e.oldDate)) || (!e.date && !e.oldDate))) {
                     return;
                 }
@@ -468,9 +473,15 @@
             },
 
             viewUpdate = function (e) {
+
                 if (e === 'y') {
                     e = 'YYYY';
                 }
+                
+                if (e === 'M') {
+                    e = 'YYYY MMMM';
+                }
+
                 notifyEvent({
                     type: 'dp.update',
                     change: e,
@@ -686,15 +697,10 @@
                     var endYearStr = endYear.format("iYYYY");
                     var startYearStr = startYear.format("iYYYY");
 
-                    console.log("End Year: " + endYear.format("iYYYY"));
+                    if (endYearStr === "1500" || startYearStr === "1355") {
 
-                    console.log("Start Year: " + startYear.format("iYYYY"));
-
-                    if (endYearStr === "1355" || startYearStr === "1355") {
-                        
-                        endYear = new Date(1950, 1, 1);
-                        startYear = endYear;
-
+                        startYear = viewDate.clone().subtract(5, 'hy');
+                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
                         break;
                     }
 
@@ -1108,8 +1114,11 @@
              ********************************************************************************/
             actions = {
                 next: function () {
+
                     var navFnc = datePickerModes[currentViewMode].navFnc;
+
                     viewDate.add(datePickerModes[currentViewMode].navStep, navFnc);
+
                     if (options.hijri) {
                         fillHijriDate();
                     } else {
@@ -1368,16 +1377,39 @@
                 clear: clear,
 
                 today: function () {
+                    
                     var todaysDate = getMoment();
                     if (isValid(todaysDate, 'd')) {
                         setValue(todaysDate);
                     }
                 },
 
-                close: hide
+                close: hide,
+
+                switchDate: function () {
+
+                    if (options.hijri) {
+
+                        options.hijri = false;
+                        fillDate();
+                        fillMonths();
+                        
+                        initFormatting();
+                    }
+                    else {
+                        options.hijri = true;
+                        fillHijriDate();
+                        fillHijriMonths();
+                        initFormatting();
+                    }
+                    
+                }
             },
 
             doAction = function (e) {
+
+
+
                 if ($(e.currentTarget).is('.disabled')) {
                     return false;
                 }
@@ -2279,6 +2311,8 @@
         };
 
         picker.showTodayButton = function (showTodayButton) {
+
+
             if (arguments.length === 0) {
                 return options.showTodayButton;
             }
@@ -2418,6 +2452,21 @@
             }
 
             options.showClose = showClose;
+            return picker;
+        };
+
+        picker.showSwitcher = function (showSwitcher) {
+
+            if (arguments.length === 0) {
+                return options.showSwitcher;
+            }
+
+            if (typeof showSwitcher !== 'boolean') {
+                throw new TypeError('showClose() expects a boolean parameter');
+            }
+
+            options.showSwitcher = showSwitcher;
+
             return picker;
         };
 
@@ -2662,14 +2711,14 @@
 
     $.fn.hijriDateTimePicker.defaults = {
         timeZone: 'Etc/UTC',
-        format: false,
+        format: 'DD-MM-YYYY',
         hijriFormat: 'iYYYY-iMM-iDD',
         hijriDayViewHeaderFormat: 'iMMMM iYYYY',
         dayViewHeaderFormat: 'MMMM YYYY',
+        minDate: '1950-01-01',
+        maxDate: '2070-01-01',
         extraFormats: false,
         stepping: 1,
-        minDate: false,
-        maxDate: false,
         useCurrent: true,
         collapse: true,
         locale: moment.locale(),
@@ -2840,6 +2889,7 @@
                 this.clear();
             }
         },
+        showSwitcher: true,
         debug: false,
         allowInputToggle: false,
         disabledTimeIntervals: false,
