@@ -1,4 +1,4 @@
-/*! version : 4.17.37
+﻿/*! version : 4.17.37
  =========================================================
  bootstrap-datetimejs
  
@@ -42,7 +42,7 @@
         throw new Error('bootstrap-datetimepicker requires Moment.js to be loaded first');
     }
 
-    var dateTimePicker = function (element, options) {
+    var hijriDateTimePicker = function (element, options) {
         var picker = {},
             date,
             viewDate,
@@ -181,11 +181,11 @@
                 var headTemplate = $('<thead>')
                     .append($('<tr>')
                         .append($('<th>').addClass('prev').attr('data-action', 'previous')
-                            .append($('<span>').addClass(options.icons.previous))
+                            .append($('<span>').html(options.icons.previous))
                         )
                         .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
                         .append($('<th>').addClass('next').attr('data-action', 'next')
-                            .append($('<span>').addClass(options.icons.next))
+                            .append($('<span>').html(options.icons.next))
                         )
                     ),
                     contTemplate = $('<tbody>')
@@ -300,16 +300,16 @@
             getToolbar = function () {
                 var row = [];
                 if (options.showTodayButton) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').addClass(options.icons.today))));
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').html(options.icons.today))));
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'togglePicker', 'title': options.tooltips.selectTime }).append($('<span>').addClass(options.icons.time))));
                 }
                 if (options.showClear) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'clear', 'title': options.tooltips.clear }).append($('<span>').addClass(options.icons.clear))));
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'clear', 'title': options.tooltips.clear }).append($('<span>').html(options.icons.clear))));
                 }
                 if (options.showClose) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'close', 'title': options.tooltips.close }).append($('<span>').addClass(options.icons.close))));
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'close', 'title': options.tooltips.close }).append($('<span>').html(options.icons.close))));
                 }
                 return $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
             },
@@ -2001,8 +2001,8 @@
 
         picker.isRTL = function () {
             if (options.isRTL) {
-                options.icons.next = "fa fa-chevron-left text-primary";
-                options.icons.previous = "fa fa-chevron-right text-primary";
+                options.icons.next = ">>";
+                options.icons.previous = "<<";
             }
             return options.isRTL;
         };
@@ -2595,18 +2595,18 @@
      *
      ********************************************************************************/
 
-    $.fn.datetimepicker = function (options) {
+    $.fn.hijriDateTimePicker = function (options) {
         return this.each(function () {
             var $this = $(this);
-            if (!$this.data('DateTimePicker')) {
+            if (!$this.data('HijriDateTimePicker')) {
                 // create a private copy of the defaults object
-                options = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
-                $this.data('DateTimePicker', dateTimePicker($this, options));
+                options = $.extend(true, {}, $.fn.hijriDateTimePicker.defaults, options);
+                $this.data('HijriDateTimePicker', hijriDateTimePicker($this, options));
             }
         });
     };
 
-    $.fn.datetimepicker.defaults = {
+    $.fn.hijriDateTimePicker.defaults = {
         timeZone: 'Etc/UTC',
         format: false,
         dayViewHeaderFormat: 'MMMM YYYY',
@@ -2625,11 +2625,11 @@
             date: 'glyphicon glyphicon-calendar',
             up: 'fa fa-chevron-up text-primary',
             down: 'fa fa-chevron-down text-primary',
-            previous: 'fa fa-chevron-left text-primary',
-            next: 'fa fa-chevron-right text-primary',
-            today: 'fa fa-calendar-alt text-primary',
-            clear: 'fa fa-trash-alt text-primary',
-            close: 'fa fa-remove'
+            previous: '<<',
+            next: '>>',
+            today: 'اليوم',
+            clear: 'مسح',
+            close: 'اغلاق'
         },
         tooltips: {
             today: 'Go to today',

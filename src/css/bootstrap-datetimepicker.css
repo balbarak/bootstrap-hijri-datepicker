@@ -349,7 +349,7 @@
                 border-bottom-color: #337ab7;
                 border-top-color: rgba(0, 0, 0, 0.2);
                 position: absolute;
-                bottom: 4px;
+                bottom: 2px;
             }
 
         .bootstrap-datetimepicker-widget table td.active,
@@ -384,11 +384,7 @@
                 background: #eeeeee;
             }
 
-            .bootstrap-datetimepicker-widget table td span.active {
-                background-color: #337ab7;
-                color: #fff;
-                text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-            }
+          
 
             .bootstrap-datetimepicker-widget table td span.old {
                 color: #777777;
@@ -456,7 +452,19 @@
         color: #cecece;
     }
 
+.datepicker tbody tr > td.active {
+    color: white;
+    background-color: #337ab7;
+}
+
+.datepicker tbody tr > td.weekend:hover {
+    background-color: whitesmoke;
+}
+
 .datepicker {
     width: 300px;
     padding: 10px;
 }
+
+
+    
