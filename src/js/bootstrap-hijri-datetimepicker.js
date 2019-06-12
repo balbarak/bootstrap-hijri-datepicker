@@ -43,6 +43,7 @@
     }
 
     var hijriDateTimePicker = function (element, options) {
+
         var picker = {},
             date,
             viewDate,
@@ -126,9 +127,9 @@
                 }
                 if (d === undefined || d === null) {
                     if (tzEnabled) {
-                        returnMoment = moment().tz(options.timeZone).startOf('d');
+                        returnMoment = moment().tz(options.timeZone).startOf('day');
                     } else {
-                        returnMoment = moment().startOf('d');
+                        returnMoment = moment().startOf('day');
                     }
                 } else {
                     if (tzEnabled) {
@@ -489,7 +490,7 @@
 
             fillDow = function () {
                 var row = $('<tr>'),
-                    currentDate = viewDate.clone().startOf('w').startOf('d');
+                    currentDate = viewDate.clone().startOf('w').startOf('day');
 
                 if (options.calendarWeeks === true) {
                     row.append($('<th>').addClass('cw').text('#'));
@@ -497,7 +498,7 @@
 
                 while (currentDate.isBefore(viewDate.clone().endOf('w'))) {
                     row.append($('<th>').addClass('dow').text(currentDate.format('dd')));
-                    currentDate.add(1, 'd');
+                    currentDate.add(1, 'days');
                 }
                 widget.find('.datepicker-days thead').append(row);
             },
@@ -519,6 +520,8 @@
             },
 
             isValid = function (targetMoment, granularity) {
+
+                
                 if (!targetMoment.isValid()) {
                     return false;
                 }
@@ -559,12 +562,18 @@
             },
 
             fillMonths = function () {
+
                 var spans = [],
-                    monthsShort = viewDate.clone().startOf('y').startOf('d');
-                while (monthsShort.isSame(viewDate, 'y')) {
+                    monthsShort = viewDate.clone().startOf('y').startOf('day');
+
+                while (monthsShort.isSame(viewDate, 'years')) {
+
                     spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('MMM')));
-                    monthsShort.add(1, 'M');
+
+                    monthsShort.add(1, 'months');
+
                 }
+
                 widget.find('.datepicker-months td').empty().append(spans);
             },
 
@@ -591,7 +600,7 @@
 
                 monthsView.find('.disabled').removeClass('disabled');
 
-                if (!isValid(viewDate.clone().subtract(1, 'y'), 'y')) {
+                if (!isValid(viewDate.clone().subtract(1, 'years'), 'y')) {
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
 
@@ -624,7 +633,7 @@
 
                 monthsView.find('.disabled').removeClass('disabled');
 
-                if (!isValid(viewDate.clone().subtract(1, 'y'), 'y')) {
+                if (!isValid(viewDate.clone().subtract(1, 'years'), 'y')) {
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
 
@@ -699,6 +708,7 @@
             },
 
             updateYears = function () {
+
                 var yearsView = widget.find('.datepicker-years'),
                     yearsViewHeader = yearsView.find('th'),
                     startYear = viewDate.clone().subtract(5, 'y'),
@@ -728,7 +738,6 @@
 
                 yearsView.find('td').html(html);
             },
-
 
             updateDecades = function () {
                 var decadesView = widget.find('.datepicker-decades'),
@@ -765,10 +774,13 @@
             },
 
             fillDate = function () {
+
                 if (options.hijri) {
                     fillHijriDate();
                     return;
                 }
+
+                
                 var daysView = widget.find('.datepicker-days'),
                     daysViewHeader = daysView.find('th'),
                     currentDate,
@@ -788,14 +800,14 @@
                 daysView.find('.disabled').removeClass('disabled');
                 daysViewHeader.eq(1).text(viewDate.format(options.dayViewHeaderFormat));
 
-                if (!isValid(viewDate.clone().subtract(1, 'M'), 'M')) {
+                if (!isValid(viewDate.clone().subtract(1, 'months'), 'months')) {
                     daysViewHeader.eq(0).addClass('disabled');
                 }
-                if (!isValid(viewDate.clone().add(1, 'M'), 'M')) {
+                if (!isValid(viewDate.clone().add(1, 'months'), 'months')) {
                     daysViewHeader.eq(2).addClass('disabled');
                 }
 
-                currentDate = viewDate.clone().startOf('M').startOf('w').startOf('d');
+                currentDate = viewDate.clone().startOf('months').startOf('weeks').startOf('days');
 
                 for (i = 0; i < 42; i++) { //always display 42 days (should show 6 weeks)
                     if (currentDate.weekday() === 0) {
@@ -806,26 +818,26 @@
                         html.push(row);
                     }
                     clsName = '';
-                    if (currentDate.isBefore(viewDate, 'M')) {
+                    if (currentDate.isBefore(viewDate, 'months')) {
                         clsName += ' old';
                     }
-                    if (currentDate.isAfter(viewDate, 'M')) {
+                    if (currentDate.isAfter(viewDate, 'months')) {
                         clsName += ' new';
                     }
-                    if (currentDate.isSame(date, 'd') && !unset) {
+                    if (currentDate.isSame(date, 'days') && !unset) {
                         clsName += ' active';
                     }
-                    if (!isValid(currentDate, 'd')) {
+                    if (!isValid(currentDate, 'days')) {
                         clsName += ' disabled';
                     }
-                    if (currentDate.isSame(getMoment(), 'd')) {
+                    if (currentDate.isSame(getMoment(), 'days')) {
                         clsName += ' today';
                     }
                     if (currentDate.day() === 6 || currentDate.day() === 5) {
                         clsName += ' weekend';
                     }
                     row.append('<td data-action="selectDay" data-day="' + currentDate.format('L') + '" class="day' + clsName + '">' + currentDate.date() + '</td>');
-                    currentDate.add(1, 'd');
+                    currentDate.add(1, 'days');
                 }
 
                 daysView.find('tbody').empty().append(html);
@@ -856,7 +868,7 @@
                 daysViewHeader.eq(2).find('span').attr('title', options.tooltips.nextMonth);
 
                 daysView.find('.disabled').removeClass('disabled');
-                daysViewHeader.eq(1).text(viewDate.format(options.dayViewHeaderFormat));
+                daysViewHeader.eq(1).text(viewDate.format(options.hijriDayViewHeaderFormat));
 
                 if (!isValid(viewDate.clone().subtract(1, 'iMonth'), 'iMonth')) {
                     daysViewHeader.eq(0).addClass('disabled');
@@ -896,7 +908,7 @@
                     }
                     row.append('<td data-action="selectDay" data-mday="' + currentDate.date() + '" data-day="' + currentDate.format('L') + '" class="day' + clsName + '">' + currentDate.iDate() + '</td>');
                     //row.append('<td data-action="selectDay" data-day="' + currentDate.date() + '" class="day' + clsName + '">' + currentDate.hDate() + '</td>');
-                    currentDate.add(1, 'd');
+                    currentDate.add(1, 'days');
                 }
 
                 daysView.find('tbody').empty().append(html);
@@ -910,7 +922,7 @@
 
             fillHours = function () {
                 var table = widget.find('.timepicker-hours table'),
-                    currentHour = viewDate.clone().startOf('d'),
+                    currentHour = viewDate.clone().startOf('day'),
                     html = [],
                     row = $('<tr>');
 
@@ -989,9 +1001,11 @@
             },
 
             update = function () {
+
                 if (!widget) {
                     return;
                 }
+
                 fillDate();
                 fillTime();
             },
@@ -1020,6 +1034,7 @@
                 }
 
                 if (isValid(targetMoment)) {
+                    
                     date = targetMoment;
                     viewDate = date.clone();
                     input.val(date.format(actualFormat));
@@ -1212,10 +1227,10 @@
                         setValue(day.iDate(parseInt($(e.target).text(), 10)));
                     } else {
                         if ($(e.target).is('.old')) {
-                            day.subtract(1, 'M');
+                            day.subtract(1, 'months');
                         }
                         if ($(e.target).is('.new')) {
-                            day.add(1, 'M');
+                            day.add(1, 'months');
                         }
                         setValue(day.date(parseInt($(e.target).text(), 10)));
                     }
@@ -1585,7 +1600,12 @@
             },
 
             initFormatting = function () {
+                
                 var format = options.format || 'L LT';
+
+                if (options.hijri) {
+                    format = options.hijriFormat;
+                }
 
                 actualFormat = format.replace(/(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g, function (formatInput) {
                     var newinput = date.localeData().longDateFormat(formatInput) || formatInput;
@@ -1736,6 +1756,26 @@
             return picker;
         };
 
+        picker.hijriFormat = function (newFormat) {
+
+            /////<summary>test su</summary>
+            /////<param name="newFormat">info about para</param>
+            /////<returns type="string|boolean">returns foo</returns>
+            //if (arguments.length === 0) {
+            //    return options.format;
+            //}
+
+            //if ((typeof newFormat !== 'string') && ((typeof newFormat !== 'boolean') || (newFormat !== false))) {
+            //    throw new TypeError('format() expects a sting or boolean:false parameter ' + newFormat);
+            //}
+
+            //options.format = newFormat;
+            //if (actualFormat) {
+            //    initFormatting(); // reinit formatting
+            //}
+            //return picker;
+        };
+
         picker.timeZone = function (newZone) {
             if (arguments.length === 0) {
                 return options.timeZone;
@@ -1757,6 +1797,20 @@
 
             options.dayViewHeaderFormat = newFormat;
             return picker;
+        };
+
+        picker.hijriDayViewHeaderFormat = function (newFormat) {
+
+            //if (arguments.length === 0) {
+            //    return options.dayViewHeaderFormat;
+            //}
+
+            //if (typeof newFormat !== 'string') {
+            //    throw new TypeError('dayViewHeaderFormat() expects a string parameter');
+            //}
+
+            //options.dayViewHeaderFormat = newFormat;
+            //return picker;
         };
 
         picker.extraFormats = function (formats) {
@@ -1857,7 +1911,7 @@
             if (options.useCurrent && !options.keepInvalid) {
                 var tries = 0;
                 while (!isValid(date, 'd')) {
-                    date.add(1, 'd');
+                    date.add(1, 'days');
                     if (tries === 7) {
                         throw 'Tried 7 times to find a valid date';
                     }
@@ -2609,6 +2663,8 @@
     $.fn.hijriDateTimePicker.defaults = {
         timeZone: 'Etc/UTC',
         format: false,
+        hijriFormat: 'iYYYY-iMM-iDD',
+        hijriDayViewHeaderFormat: 'iMMMM iYYYY',
         dayViewHeaderFormat: 'MMMM YYYY',
         extraFormats: false,
         stepping: 1,
@@ -2708,7 +2764,7 @@
                 }
                 var d = this.date() || this.getMoment();
                 if (widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(1, 'y'));
+                    this.date(d.clone().subtract(1, 'years'));
                 } else {
                     this.date(d.clone().add(1, 'h'));
                 }
@@ -2730,7 +2786,7 @@
                 }
                 var d = this.date() || this.getMoment();
                 if (widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(1, 'd'));
+                    this.date(d.clone().subtract(1, 'days'));
                 }
             },
             right: function (widget) {
@@ -2741,7 +2797,7 @@
                 }
                 var d = this.date() || this.getMoment();
                 if (widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().add(1, 'd'));
+                    this.date(d.clone().add(1, 'days'));
                 }
             },
             pageUp: function (widget) {
@@ -2750,7 +2806,7 @@
                 }
                 var d = this.date() || this.getMoment();
                 if (widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(1, 'M'));
+                    this.date(d.clone().subtract(1, 'months'));
                 }
             },
             pageDown: function (widget) {
@@ -2759,7 +2815,7 @@
                 }
                 var d = this.date() || this.getMoment();
                 if (widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().add(1, 'M'));
+                    this.date(d.clone().add(1, 'months'));
                 }
             },
             enter: function () {

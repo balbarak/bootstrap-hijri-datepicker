@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
-<html>
+<html dir="rtl">
 <head>
     <meta charset="utf-8" />
     <title></title>
 
-    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+    <link href="css/bootstrap.rtl.css" rel="stylesheet" />
     <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" />
 
 
@@ -52,11 +53,16 @@
 
             $("#hijri-date-input").hijriDateTimePicker({
                 locale: "ar-sa",
-                format: "iYYYY-iMM-iDD",
-                dayViewHeaderFormat: "iMMMM iYYYY",
+
+                format: "DD-MM-YYYY",
+                hijriFormat:"iYYYY-iMM-iDD",
+
+                dayViewHeaderFormat: "MMMM YYYY",
+                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+
                 allowInputToggle: true,
                 showTodayButton: false,
-                useCurrent: false,
+                useCurrent: true,
                 showClear: false,
                 isRTL: false,
                 keepOpen: false,
