@@ -1,5 +1,5 @@
 # Getting Started
-Bootstrap Hijri Date picker
+Bootstrap Hijri Date picker v0.1.0
 
 ![sample](http://files.balbarak.com/file/598299)
 ![sample two](http://files.balbarak.com/file/58464)
