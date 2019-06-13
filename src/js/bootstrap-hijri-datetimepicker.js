@@ -29,20 +29,20 @@
     } else {
         // Neither AMD nor CommonJS used. Use global variables.
         if (typeof jQuery === 'undefined') {
-            throw 'bootstrap-datetimepicker requires jQuery to be loaded first';
+            throw 'bootstrap-hijri-datepicker requires jQuery to be loaded first';
         }
         if (typeof moment === 'undefined') {
-            throw 'bootstrap-datetimepicker requires Moment.js to be loaded first';
+            throw 'bootstrap-hijri-datepicker requires Moment.js to be loaded first';
         }
         factory(jQuery, moment);
     }
 }(function ($, moment) {
     'use strict';
     if (!moment) {
-        throw new Error('bootstrap-datetimepicker requires Moment.js to be loaded first');
+        throw new Error('bootstrap-hijri-datepicker requires Moment.js to be loaded first');
     }
 
-    var hijriDateTimePicker = function (element, options) {
+    var hijriDatePicker = function (element, options) {
 
         var picker = {},
             date,
@@ -680,6 +680,7 @@
                 yearsView.find('.disabled').removeClass('disabled');
 
                 if (options.minDate && options.minDate.isAfter(startYear, 'hy')) {
+                    
                     yearsViewHeader.eq(0).addClass('disabled');
                 }
 
@@ -2698,18 +2699,18 @@
      *
      ********************************************************************************/
 
-    $.fn.hijriDateTimePicker = function (options) {
+    $.fn.hijriDatePicker = function (options) {
         return this.each(function () {
             var $this = $(this);
-            if (!$this.data('HijriDateTimePicker')) {
+            if (!$this.data('HijriDatePicker')) {
                 // create a private copy of the defaults object
-                options = $.extend(true, {}, $.fn.hijriDateTimePicker.defaults, options);
-                $this.data('HijriDateTimePicker', hijriDateTimePicker($this, options));
+                options = $.extend(true, {}, $.fn.hijriDatePicker.defaults, options);
+                $this.data('HijriDatePicker', hijriDatePicker($this, options));
             }
         });
     };
 
-    $.fn.hijriDateTimePicker.defaults = {
+    $.fn.hijriDatePicker.defaults = {
         timeZone: 'Etc/UTC',
         format: 'DD-MM-YYYY',
         hijriFormat: 'iYYYY-iMM-iDD',
@@ -2721,7 +2722,7 @@
         stepping: 1,
         useCurrent: true,
         collapse: true,
-        locale: moment.locale(),
+        locale: 'ar-SA',
         defaultDate: false,
         disabledDates: false,
         enabledDates: false,

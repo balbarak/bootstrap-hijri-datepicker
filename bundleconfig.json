@@ -1,0 +1,23 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+  {
+    "outputFileName": "dist/css/bootstrap-datetimepicker.min.css",
+    "inputFiles": [
+      "src/css/bootstrap-datetimepicker.css"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/bootstrap-hijri-datepicker.js",
+    "inputFiles": [
+      "src/js/moment-with-locales.js",
+      "src/js/moment-hijri.js",
+      "src/js/bootstrap-hijri-datetimepicker.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

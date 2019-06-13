@@ -1,5 +1,6 @@
 // moment-hijri.js
 // author: Suhail Alkowaileet
+// modifed by : @balbarak
 // This is a modified version of moment-jalaali by Behrang Noruzi Niya
 // license: MIT
 
