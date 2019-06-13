@@ -110,6 +110,6 @@ This project was built from great work done by
 
 * @xosh https://github.com/xsoh/moment-hijri
 * @Eonasdan https://github.com/Eonasdan/bootstrap-datetimepicker
-
+* @iOsama https://github.com/iOsama
 ## License
 MIT
