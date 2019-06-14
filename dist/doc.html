@@ -29,7 +29,13 @@
 
         $(function () {
 
-            $("#hijri-date-input").hijriDatePicker();
+            $("#hijri-date-input").hijriDatePicker(
+                {
+                    format: "DD/MM/YYYY",
+                    hijriFormat: 'iYYYY/iMM/iDD',
+                    dayViewHeaderFormat: 'MM-YYYY',
+                    hijriDayViewHeaderFormat: 'iMMM iYYYY',
+                });
 
         });
 

@@ -102,7 +102,49 @@ Bootstrap Hijri Date picker v0.1.0
 
 ## Options
 
-Coming soon ...
+to use options simple pass options object see below
+
+```js
+$("#hijri-date-input").hijriDatePicker(
+    {
+        format: "DD/MM/YYYY",
+        hijriFormat: 'iYYYY/iMM/iDD',
+    });
+```
+
+
+* `format`: 
+
+    to set gregorian momentjs format
+* `hijriFormat`:  string
+
+    hijri format should start with `i` for example `iYYYY`
+
+* `dayViewHeaderFormat`:  string
+
+    picker header for gregorian dates  ex: `MM-YYYY`
+
+* `hijriDayViewHeaderFormat`: string
+
+    picker header for hijri dates ex: `iMMM-iYYYY`
+
+
+* `showSwitcher`:  boolean
+    
+    to display switch button from hijri to gregorian defautl `false` 
+
+* `showTodayButton`: boolean
+
+    to display today button
+
+* `showClear`: boolean
+
+    to display clear button
+
+* `showClose`: boolean
+
+    to display close button
+
 
 ## Acknowledgements
 
