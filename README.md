@@ -107,8 +107,8 @@ to use options simple pass options object see below
 ```js
 $("#hijri-date-input").hijriDatePicker(
     {
-        format: "DD/MM/YYYY",
-        hijriFormat: 'iYYYY/iMM/iDD',
+        format: "DD-MM-YYYY",
+        hijriFormat: 'iYYYY-iMM-iDD',
     });
 ```
 
@@ -147,7 +147,7 @@ $("#hijri-date-input").hijriDatePicker(
 
 * `viewDate`: string
 
-    to set the default view gregorian date in the picker
+    to set the default view gregorian date in the picker ex: `1980-01-01`
 
 
 ## Acknowledgements
