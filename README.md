@@ -145,6 +145,10 @@ $("#hijri-date-input").hijriDatePicker(
 
     to display close button
 
+* `viewDate`: string
+
+    to set the default view gregorian date in the picker
+
 
 ## Acknowledgements
 
