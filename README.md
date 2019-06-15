@@ -107,13 +107,16 @@ to use options simple pass options object see below
 ```js
 $("#hijri-date-input").hijriDatePicker(
     {
+        hijri : true,
         format: "DD-MM-YYYY",
         hijriFormat: 'iYYYY-iMM-iDD',
     });
 ```
+* `hijri` : boolean
 
+    set hijri date as default
 
-* `format`: 
+* `format`: string
 
     to set gregorian momentjs format
 * `hijriFormat`:  string
