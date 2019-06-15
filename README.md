@@ -134,7 +134,7 @@ $("#hijri-date-input").hijriDatePicker(
 
 * `showSwitcher`:  boolean
     
-    to display switch button from hijri to gregorian defautl `false` 
+    to display switch button from hijri to gregorian defautl `true` 
 
 * `showTodayButton`: boolean
 
