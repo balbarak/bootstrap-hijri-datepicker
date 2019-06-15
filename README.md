@@ -152,6 +152,23 @@ $("#hijri-date-input").hijriDatePicker(
 
     to set the default view gregorian date in the picker ex: `1980-01-01`
 
+## RTL support
+
+To enable rtl simply include bootstrap rtl from https://bootstrap.rtlcss.com/ and set `<html dir="rtl">`
+
+ex:
+``` html
+<html dir="rtl">
+<head>
+   
+    <meta charset="utf-8" />
+   
+   <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
+
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+....
+```
 
 ## Acknowledgements
 
