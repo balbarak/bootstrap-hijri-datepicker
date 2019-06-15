@@ -6,6 +6,7 @@ Bootstrap Hijri Date picker v0.1.0
 
 ## Installation
 
+Include css and javascript files in `dist` folder
 ### Required libraries
 * Jquery >  v3.1 [jquery](https://jquery.com/)
 * Moment.js > v2.2 [momenjs](https://momentjs.com/)
