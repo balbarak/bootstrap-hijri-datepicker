@@ -13847,10 +13847,12 @@
             }
             $.extend(true, options, newOptions);
             $.each(options, function (key, value) {
+
                 if (picker[key] !== undefined) {
                     picker[key](value);
                 } else {
-                    throw new TypeError('option ' + key + ' is not recognized!');
+
+                    //throw new TypeError('option ' + key + ' is not recognized!');
                 }
             });
             return picker;
