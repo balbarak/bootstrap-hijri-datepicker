@@ -11,7 +11,8 @@
     --container-width:300px;
     --text-color:#000000;
     --text-muted:#c1c1c1;
-    --hover-color:#337ab7;
+    --hover--bg-color:#e2e2e2;
+    --weekend-bg-color:#f5f5f5;
 }
 
  .bootstrap-datetimepicker-widget {
@@ -449,7 +450,7 @@
 }
 
 .bootstrap-datetimepicker-widget table td.weekend {
-    background-color: #EAEAEA;
+    background-color: var(--weekend-bg-color);
     border-radius: 0px;
 }
 
@@ -476,7 +477,7 @@
     padding: 10px;
 }
 
-/*=== Custom ========*/
+/*===================================================================================== Custom ========*/
 
     .datepicker.datepicker-orient-top {
         margin-top: 8px;
@@ -528,7 +529,7 @@
     }
 
         .datepicker tbody tr > td.day:hover {
-            background: #ebedf2;
+            background:var(--hover--bg-color);
             color: #6c7293;
         }
 
@@ -575,7 +576,7 @@
         .datepicker tbody tr > td span.hour:hover,
         .datepicker tbody tr > td span.minute:hover,
         .datepicker tbody tr > td span.month:hover {
-            background: #f7f8fa;
+            background:var(--hover--bg-color);
         }
 
         .datepicker tbody tr > td span.year.focused, .datepicker tbody tr > td span.year.focused:hover, .datepicker tbody tr > td span.year.active:hover, .datepicker tbody tr > td span.year.active.focused:hover, .datepicker tbody tr > td span.year.active,
