@@ -1,0 +1,21 @@
+{
+  "name": "bootstrap-hijri-datepicker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "balbarak",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-copy": "^4.0.1",
+    "gulp-minify": "^3.1.0",
+    "gulp-rename": "^2.0.0"
+  },
+  "dependencies": {}
+}
