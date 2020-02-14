@@ -9,11 +9,12 @@
     </title>
 
 
-    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    
+
 
 </head>
+
 <body class="bg-light">
 
     <div class="container">
@@ -26,14 +27,26 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        Date
-                    </label>
-                    <div class="input-group">
-                        <input type="text" class="form-control hijri-date-input" />
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>
+                                Date
+                            </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control default-input" />
+                            </div>
+                        </div>
+                        <figure class="highlight">
+                            <pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"card"</span><span class="nt">&gt;</span>
+                            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"card-body"</span><span class="nt">&gt;</span>
+                              This is some text within a card body.
+                            <span class="nt">&lt;/div&gt;</span>
+                          <span class="nt">&lt;/div&gt;</span></code></pre>
+                        </figure>
                     </div>
                 </div>
+
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -51,11 +64,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
     <script src="./js/bootstrap-hijri-datetimepickermin.js"></script>
-
+    
     <script type="text/javascript">
 
 
         $(function () {
+
+            initDefault();
 
             initHijrDatePicker();
 
@@ -68,7 +83,7 @@
             $(".hijri-date-input").hijriDatePicker({
                 locale: "ar-sa",
                 format: "DD-MM-YYYY",
-                hijriFormat:"iYYYY-iMM-iDD",
+                hijriFormat: "iYYYY-iMM-iDD",
                 dayViewHeaderFormat: "MMMM YYYY",
                 hijriDayViewHeaderFormat: "iMMMM iYYYY",
                 showSwitcher: true,
@@ -76,7 +91,7 @@
                 showTodayButton: false,
                 useCurrent: true,
                 isRTL: true,
-                viewMode:'months',
+                viewMode: 'months',
                 keepOpen: false,
                 hijri: true,
                 //debug: true,
@@ -92,7 +107,12 @@
         }
 
 
+        function initDefault() {
+            $(".default-input").hijriDatePicker();
+        }
+
     </script>
 
 </body>
+
 </html>

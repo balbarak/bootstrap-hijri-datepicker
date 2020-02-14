@@ -2733,8 +2733,8 @@
             date: 'glyphicon glyphicon-calendar',
             up: 'fa fa-chevron-up text-primary',
             down: 'fa fa-chevron-down text-primary',
-            previous: '<<',
-            next: '>>',
+            previous: '<',
+            next: '>',
             today: 'اليوم',
             clear: 'مسح',
             close: 'اغلاق'
