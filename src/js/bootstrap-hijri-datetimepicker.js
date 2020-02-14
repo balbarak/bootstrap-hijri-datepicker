@@ -301,7 +301,10 @@
             getToolbar = function () {
                 var row = [];
                 if (options.showTodayButton) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').html(options.icons.today))));
+                    let todayButton = $('<a data-action="todya" title="title" class="hijri-date-toolbar-item btn btn-sm btn-primary"></a>').html(options.icons.today);
+
+                    //row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').html(options.icons.today))));
+                    row.push($('<td>').append(todayButton));
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'togglePicker', 'title': options.tooltips.selectTime }).append($('<span>').addClass(options.icons.time))));

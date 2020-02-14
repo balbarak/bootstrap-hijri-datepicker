@@ -26,17 +26,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        Date
-                    </label>
-                    <div class="input-group">
-                        <input type="text" class="form-control hijri-date-input" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>
                         Date
@@ -70,7 +60,7 @@
         function initHijrDatePicker() {
 
             $(".hijri-date-input").hijriDatePicker({
-                locale: "ar-sa",
+                locale: "en-us",
                 format: "DD-MM-YYYY",
                 hijriFormat:"iYYYY-iMM-iDD",
                 dayViewHeaderFormat: "MMMM YYYY",
@@ -82,8 +72,8 @@
                 isRTL: false,
                 viewMode:'months',
                 keepOpen: false,
-                hijri: true,
-                //debug: true,
+                hijri: false,
+                debug: true,
                 showClear: true,
                 showTodayButton: true,
                 showClose: true
