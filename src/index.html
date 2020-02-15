@@ -36,6 +36,17 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>
+                        Disabled Dates
+                    </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control disable-date" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -55,6 +66,15 @@
 
             //initHijrDatePickerDefault();
 
+            $('.disable-date').hijriDatePicker({
+
+                minDate:"2020-01-01",
+                maxDate:"2020-06-15",
+                viewMode:"months",
+                hijri:true,
+                debug:true
+            });
+
         });
 
         function initHijrDatePicker() {
@@ -72,7 +92,7 @@
                 isRTL: false,
                 viewMode:'months',
                 keepOpen: false,
-                hijri: true,
+                hijri: false,
                 debug: true,
                 showClear: true,
                 showTodayButton: true,

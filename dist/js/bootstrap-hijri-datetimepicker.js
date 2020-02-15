@@ -12411,7 +12411,12 @@
             getToolbar = function () {
                 var row = [];
                 if (options.showTodayButton) {
+
+                    //let todayButton = $('<a data-action="todya" title="title" class="hijri-date-toolbar-item btn btn-sm btn-primary"></a>').html(options.icons.today);
+                    //row.push($('<td>').append(todayButton));
+
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').html(options.icons.today))));
+
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'togglePicker', 'title': options.tooltips.selectTime }).append($('<span>').addClass(options.icons.time))));
@@ -12424,7 +12429,14 @@
                 }
 
                 if (options.showSwitcher) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'switchDate', 'title': options.tooltips.close }).append($('<span>').html('هجري/ميلادي'))));
+                    
+                    let text = options.hijriText;
+
+                    if (options.hijri){
+                        text = options.gregorianText;
+                    }
+
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'switchDate', 'title': options.tooltips.close }).append($('<span class="data-switch-button">').html(text))));
                 }
                 return $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
             },
@@ -12575,7 +12587,7 @@
             },
 
             notifyEvent = function (e) {
-                
+
                 if (e.type === 'dp.change' && ((e.date && e.date.isSame(e.oldDate)) || (!e.date && !e.oldDate))) {
                     return;
                 }
@@ -12587,7 +12599,7 @@
                 if (e === 'y') {
                     e = 'YYYY';
                 }
-                
+
                 if (e === 'M') {
                     e = 'YYYY MMMM';
                 }
@@ -12642,7 +12654,7 @@
 
             isValid = function (targetMoment, granularity) {
 
-                
+
                 if (!targetMoment.isValid()) {
                     return false;
                 }
@@ -12702,9 +12714,17 @@
                 var spans = [],
                     monthsShort = viewDate.clone().startOf('hy').hour(12); // hour is changed to avoid DST issues in some browsers
 
+
+                let currentMonth = 1;
+
                 while (monthsShort.iYear() === viewDate.iYear()) {
-                    spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('iMMM')));
+
+                    spans.push($('<span>')
+                        .attr('data-action', 'selectMonth')
+                        .attr('data-month', currentMonth)
+                        .addClass('month').text(monthsShort.format('iMMM')));
                     monthsShort.add(1, 'iMonth');
+                    currentMonth++;
                 }
 
                 widget.find('.datepicker-months td').empty().append(spans);
@@ -12732,12 +12752,19 @@
                 }
 
                 months.removeClass('active');
-                if (date.isSame(viewDate, 'y')) {
-                    months.eq(date.month()).addClass('active');
+                if (date.isSame(viewDate, 'iM')) {
+
+                    let selectedMonth = date.format("iM");
+
+                    months.each(function (i) {
+                        if ($(this).attr('data-month') == selectedMonth) {
+                            $(this).addClass('active');
+                        }
+                    });
                 }
 
                 months.each(function (index) {
-                    if (!isValid(viewDate.clone().month(index), 'M')) {
+                    if (!isValid(viewDate.clone().month(index), 'iM')) {
                         $(this).addClass('disabled');
                     }
                 });
@@ -12766,6 +12793,7 @@
 
                 months.removeClass('active');
                 if (date.isSame(viewDate, 'y') && !unset) {
+
                     months.eq(date.month()).addClass('active');
                 }
 
@@ -12790,7 +12818,7 @@
                 yearsView.find('.disabled').removeClass('disabled');
 
                 if (options.minDate && options.minDate.isAfter(startYear, 'hy')) {
-                    
+
                     yearsViewHeader.eq(0).addClass('disabled');
                 }
 
@@ -12897,7 +12925,7 @@
                     return;
                 }
 
-                
+
                 var daysView = widget.find('.datepicker-days'),
                     daysViewHeader = daysView.find('th'),
                     currentDate,
@@ -13151,7 +13179,7 @@
                 }
 
                 if (isValid(targetMoment)) {
-                    
+
                     date = targetMoment;
                     viewDate = date.clone();
                     input.val(date.format(actualFormat));
@@ -13488,7 +13516,7 @@
                 clear: clear,
 
                 today: function () {
-                    
+
                     var todaysDate = getMoment();
                     if (isValid(todaysDate, 'd')) {
                         setValue(todaysDate);
@@ -13504,16 +13532,21 @@
                         options.hijri = false;
                         fillDate();
                         fillMonths();
-                        
+
                         initFormatting();
+
+                        $(".data-switch-button").html(options.hijriText);
                     }
                     else {
                         options.hijri = true;
                         fillHijriDate();
                         fillHijriMonths();
                         initFormatting();
+
+                        $(".data-switch-button").html(options.gregorianText);
+
                     }
-                    
+
                 }
             },
 
@@ -13743,7 +13776,7 @@
             },
 
             initFormatting = function () {
-                
+
                 var format = options.format || 'L LT';
 
                 if (options.hijri) {
@@ -14200,8 +14233,8 @@
 
         picker.isRTL = function () {
             if (options.isRTL) {
-                options.icons.next = ">>";
-                options.icons.previous = "<<";
+                options.icons.next = ">";
+                options.icons.previous = "<";
             }
             return options.isRTL;
         };
@@ -14843,8 +14876,8 @@
             date: 'glyphicon glyphicon-calendar',
             up: 'fa fa-chevron-up text-primary',
             down: 'fa fa-chevron-down text-primary',
-            previous: '<<',
-            next: '>>',
+            previous: '<',
+            next: '>',
             today: 'اليوم',
             clear: 'مسح',
             close: 'اغلاق'
@@ -15010,6 +15043,8 @@
         enabledHours: false,
         viewDate: false,
         hijri: false,
-        isRTL: false
+        isRTL: false,
+        hijriText:"هجري",
+        gregorianText:"ميلادي"
     };
 }));

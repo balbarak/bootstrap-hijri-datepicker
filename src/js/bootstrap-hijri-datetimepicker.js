@@ -302,10 +302,11 @@
                 var row = [];
                 if (options.showTodayButton) {
 
-                    let todayButton = $('<a data-action="todya" title="title" class="hijri-date-toolbar-item btn btn-sm btn-primary"></a>').html(options.icons.today);
+                    //let todayButton = $('<a data-action="todya" title="title" class="hijri-date-toolbar-item btn btn-sm btn-primary"></a>').html(options.icons.today);
+                    //row.push($('<td>').append(todayButton));
 
-                    //row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').html(options.icons.today))));
-                    row.push($('<td>').append(todayButton));
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').html(options.icons.today))));
+
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'togglePicker', 'title': options.tooltips.selectTime }).append($('<span>').addClass(options.icons.time))));
@@ -318,7 +319,14 @@
                 }
 
                 if (options.showSwitcher) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'switchDate', 'title': options.tooltips.close }).append($('<span>').html('هجري/ميلادي'))));
+
+                    let text = options.hijriText;
+
+                    if (options.hijri) {
+                        text = options.gregorianText;
+                    }
+
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'switchDate', 'title': options.tooltips.close }).append($('<span class="data-switch-button">').html(text))));
                 }
                 return $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
             },
@@ -613,7 +621,8 @@
             },
 
             updateHijriMonths = function () {
-                var monthsView = widget.find('.datepicker-months'),
+
+                let monthsView = widget.find('.datepicker-months'),
                     monthsViewHeader = monthsView.find('th'),
                     months = monthsView.find('tbody').find('span');
 
@@ -629,13 +638,14 @@
 
                 monthsViewHeader.eq(1).text(viewDate.iYear());
 
-                if (!isValid(viewDate.clone().add(1, 'y'), 'y')) {
+                if (!isValid(viewDate.clone().add(1, 'years'), 'y')) {
                     monthsViewHeader.eq(2).addClass('disabled');
                 }
 
                 months.removeClass('active');
+
                 if (date.isSame(viewDate, 'iM')) {
-                    
+
                     let selectedMonth = date.format("iM");
 
                     months.each(function (i) {
@@ -645,15 +655,28 @@
                     });
                 }
 
-                months.each(function (index) {
-                    if (!isValid(viewDate.clone().month(index), 'iM')) {
-                        $(this).addClass('disabled');
+                let hijriMonths = [];
+                let currentDate = viewDate.clone().month(0);
+                let currentYear = currentDate.format('iYYYY');
+
+                for (var i = 1; i < 13; i++) {
+                    let date = currentYear + '-' + i + '-15';
+                    hijriMonths.push(moment(date,"iYYYY-iM-iD"));
+                }
+
+                for (let i = 0; i < hijriMonths.length; i++) {
+                    let element = hijriMonths[i];
+                    let currentMonth = element.format("iM");
+                    let isValidMonth = isValid(element,"month");
+                    
+                    if (!isValidMonth){
+                        months.filter('[data-month="'+ currentMonth +'"]').addClass('disabled');
                     }
-                });
+                }
             },
 
             updateMonths = function () {
-                var monthsView = widget.find('.datepicker-months'),
+                let monthsView = widget.find('.datepicker-months'),
                     monthsViewHeader = monthsView.find('th'),
                     months = monthsView.find('tbody').find('span');
 
@@ -1416,12 +1439,17 @@
                         fillMonths();
 
                         initFormatting();
+
+                        $(".data-switch-button").html(options.hijriText);
                     }
                     else {
                         options.hijri = true;
                         fillHijriDate();
                         fillHijriMonths();
                         initFormatting();
+
+                        $(".data-switch-button").html(options.gregorianText);
+
                     }
 
                 }
@@ -2109,10 +2137,11 @@
         };
 
         picker.isRTL = function () {
+
             if (options.isRTL) {
-                options.icons.next = ">>";
-                options.icons.previous = "<<";
+                //todo what goes here
             }
+
             return options.isRTL;
         };
 
@@ -2920,6 +2949,8 @@
         enabledHours: false,
         viewDate: false,
         hijri: false,
-        isRTL: false
+        isRTL: false,
+        hijriText: "هجري",
+        gregorianText: "ميلادي"
     };
 }));
