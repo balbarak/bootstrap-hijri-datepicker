@@ -632,13 +632,13 @@
 
                 monthsView.find('.disabled').removeClass('disabled');
 
-                if (!isValid(viewDate.clone().subtract(1, 'years'), 'y')) {
+                if (!isValid(viewDate.clone().subtract(1, 'iYear'), 'y')) {
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
 
                 monthsViewHeader.eq(1).text(viewDate.iYear());
 
-                if (!isValid(viewDate.clone().add(1, 'years'), 'y')) {
+                if (!isValid(viewDate.clone().add(1, 'iYear'), 'y')) {
                     monthsViewHeader.eq(2).addClass('disabled');
                 }
 
@@ -712,8 +712,8 @@
             updateHijriYears = function () {
                 var yearsView = widget.find('.datepicker-years'),
                     yearsViewHeader = yearsView.find('th'),
-                    startYear = viewDate.clone().subtract(5, 'hy'),
-                    endYear = viewDate.clone().add(6, 'hy'),
+                    startYear = viewDate.clone().subtract(5, 'iYear'),
+                    endYear = viewDate.clone().add(6, 'iYear'),
                     html = '';
 
                 yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevDecade);
@@ -722,15 +722,15 @@
 
                 yearsView.find('.disabled').removeClass('disabled');
 
-                if (options.minDate && options.minDate.isAfter(startYear, 'hy')) {
+                if (options.minDate && options.minDate.isAfter(startYear, 'iy')) {
 
-                    yearsViewHeader.eq(0).addClass('disabled');
+                    //yearsViewHeader.eq(0).addClass('disabled');
                 }
 
                 yearsViewHeader.eq(1).text(startYear.iYear() + '-' + endYear.iYear());
 
-                if (options.maxDate && options.maxDate.isBefore(endYear, 'hy')) {
-                    yearsViewHeader.eq(2).addClass('disabled');
+                if (options.maxDate && options.maxDate.isBefore(endYear, 'iy')) {
+                    //yearsViewHeader.eq(2).addClass('disabled');
                 }
 
 
@@ -743,12 +743,12 @@
 
                     if (endYearStr === "1500" || startYearStr === "1355") {
 
-                        startYear = viewDate.clone().subtract(5, 'hy');
-                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                        startYear = viewDate.clone().subtract(5, 'iy');
+                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'iy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
                         break;
                     }
 
-                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'iy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
 
                     startYear.add(1, 'iYear');
                 }
