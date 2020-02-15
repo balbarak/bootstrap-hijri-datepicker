@@ -661,16 +661,16 @@
 
                 for (var i = 1; i < 13; i++) {
                     let date = currentYear + '-' + i + '-15';
-                    hijriMonths.push(moment(date,"iYYYY-iM-iD"));
+                    hijriMonths.push(moment(date, "iYYYY-iM-iD"));
                 }
 
                 for (let i = 0; i < hijriMonths.length; i++) {
                     let element = hijriMonths[i];
                     let currentMonth = element.format("iM");
-                    let isValidMonth = isValid(element,"month");
-                    
-                    if (!isValidMonth){
-                        months.filter('[data-month="'+ currentMonth +'"]').addClass('disabled');
+                    let isValidMonth = isValid(element, "month");
+
+                    if (!isValidMonth) {
+                        months.filter('[data-month="' + currentMonth + '"]').addClass('disabled');
                     }
                 }
             },
@@ -743,12 +743,12 @@
 
                     if (endYearStr === "1500" || startYearStr === "1355") {
 
-                        startYear = viewDate.clone().subtract(5, 'iy');
-                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'iy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                        startYear = viewDate.clone().subtract(5, 'iYear');
+                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
                         break;
                     }
 
-                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'iy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
 
                     startYear.add(1, 'iYear');
                 }
