@@ -46,9 +46,9 @@
     </h4>
     <p>
         type: <code>string</code>
-        <br/>
+        <br />
         default: <code>days</code>
-        <br/>
+        <br />
         values: <code>years</code>, <code>months</code>, <code>days</code>
     </p>
     <div class="form-group">
@@ -76,7 +76,7 @@
         format
     </h4>
     <p>
-        Gregorian date format <br/>
+        Gregorian date format <br />
         type: <code>string</code>
         <br />
         default: <code>DD-MM-YYYY</code>
@@ -200,7 +200,7 @@
         maxDate
     </h4>
     <p>
-        Max supported date is : <code>2070-01-01</code> <br/>
+        Max supported date is : <code>2070-01-01</code> <br />
         type: <code>string</code>
         <br />
         default: <code>2070-01-01</code>
@@ -233,7 +233,7 @@
         viewDate
     </h4>
     <p>
-        Display default view date. In order to use it you must set <code>userCurrent: false</code> <br /> 
+        Display default view date. In order to use it you must set <code>userCurrent: false</code> <br />
         type: <code>string</code>
         <br />
         default: <code>2070-01-01</code>
@@ -452,6 +452,61 @@
 
 </div>
 
+<h2>
+    Events
+</h2>
+<hr />
+
+<div class="section">
+    <h4>
+       on change
+    </h4>
+    <p>
+        change action text
+    </p>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="input-group">
+                    <input id="picker-15" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <p>
+                <b>
+                    Selected Date:
+                </b>
+                <span id="selected-date"></span>
+            </p>
+        </div>
+    </div>
+    
+
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $("#picker-15").hijriDatePicker({
+        showTodayButton: true
+    });
+
+    $("#picker-15").on('dp.change', function (arg) {
+
+        if (!arg.date) {
+            $("#selected-date").html('');
+            return;
+        };
+
+        let date = arg.date;
+
+        $("#selected-date").html(date.format("YYYY/M/D") + " Hijri:" + date.format("iYYYY/iM/iD"));
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
 
 
 @section scripts{

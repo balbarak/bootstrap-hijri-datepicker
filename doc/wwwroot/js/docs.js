@@ -79,5 +79,23 @@
         gregorianText: "عرض التاريخ الميلادي"
     });
 
+    $("#picker-15").hijriDatePicker({
+        showTodayButton: true,
+        showClear:true,
+        useCurrent:false
+    });
+
+    $("#picker-15").on('dp.change', function (arg) {
+
+        if (!arg.date) {
+            $("#selected-date").html('');
+            return;
+        };
+
+        let date = arg.date;
+
+        $("#selected-date").html(date.format("YYYY/M/D") + " Hijri:" + date.format("iYYYY/iM/iD"));
+    });
+
 });
 
