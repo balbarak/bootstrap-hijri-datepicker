@@ -1,8 +1,11 @@
 # Getting Started
-Bootstrap Hijri Date picker v0.1.0
+Bootstrap Hijri Date picker v1.0.0
 
 ![sample](http://files.balbarak.com/file/598299)
 ![sample two](http://files.balbarak.com/file/58464)
+
+## Demo
+See  [Live Demo](http://hijri-datepicker.azurewebsites.net/)
 
 ## Installation
 
@@ -102,75 +105,9 @@ Use css and javascript files in `dist` folder
 </html>
 ```
 
-## Options
+## Docs
 
-to use options simple pass options object see below
-
-```js
-$("#hijri-date-input").hijriDatePicker(
-    {
-        hijri : true,
-        format: "DD-MM-YYYY",
-        hijriFormat: 'iYYYY-iMM-iDD',
-    });
-```
-* `hijri` : boolean
-
-    set hijri date as default
-
-* `format`: string
-
-    to set gregorian momentjs format
-* `hijriFormat`:  string
-
-    hijri format should start with `i` for example `iYYYY`
-
-* `dayViewHeaderFormat`:  string
-
-    picker header for gregorian dates  ex: `MM-YYYY`
-
-* `hijriDayViewHeaderFormat`: string
-
-    picker header for hijri dates ex: `iMMM-iYYYY`
-
-
-* `showSwitcher`:  boolean
-    
-    to display switch button from hijri to gregorian defautl `true` 
-
-* `showTodayButton`: boolean
-
-    to display today button
-
-* `showClear`: boolean
-
-    to display clear button
-
-* `showClose`: boolean
-
-    to display close button
-
-* `viewDate`: string
-
-    to set the default view gregorian date in the picker ex: `1980-01-01`
-
-## RTL support
-
-To enable rtl simply include bootstrap rtl from https://bootstrap.rtlcss.com/ and set `<html dir="rtl">`
-
-ex:
-``` html
-<html dir="rtl">
-<head>
-   
-    <meta charset="utf-8" />
-   
-   <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
-
-    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-</head>
-....
-```
+See  [Documentation](http://hijri-datepicker.azurewebsites.net/doc)
 
 ## Acknowledgements
 
