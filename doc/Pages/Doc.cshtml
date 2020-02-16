@@ -15,12 +15,16 @@
         hijri
     </h4>
     <p>
-        to make the default is hijri
+        type: <code>boolean</code>
+        <br />
+        default: <code>false</code>
+        <br />
+        values: <code>true</code>, <code>false</code>
     </p>
     <div class="form-group">
 
         <div class="input-group">
-            <input id="hijri-picker" type="text" class="form-control" />
+            <input id="d-hijri-picker" type="text" class="form-control" />
         </div>
     </div>
     <figure class="highlight">
@@ -38,26 +42,419 @@
 
 <div class="section">
     <h4>
-        hijri
+        viewMode
     </h4>
     <p>
-        to make the default is hijri
+        type: <code>string</code>
+        <br/>
+        default: <code>days</code>
+        <br/>
+        values: <code>years</code>, <code>months</code>, <code>days</code>
     </p>
     <div class="form-group">
 
         <div class="input-group">
-            <input id="hijri-picker" type="text" class="form-control" />
+            <input id="picker-2" type="text" class="form-control" />
         </div>
     </div>
     <figure class="highlight">
         <pre>
         <code class="javascript">
-            $('#picker').hijriDatePicker({
-                hijri:true
-            });
+    $('#picker').hijriDatePicker({
+        hijri:true,
+        viewMode:'months'
+    });
+        
         </code>
 </pre>
     </figure>
 
 </div>
 
+<div class="section">
+    <h4>
+        format
+    </h4>
+    <p>
+        Gregorian date format <br/>
+        type: <code>string</code>
+        <br />
+        default: <code>DD-MM-YYYY</code>
+        <br />
+        values: <code>moment js format</code>
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-3" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        format:'D/M/YYYY'
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+<div class="section">
+    <h4>
+        hijriFormat
+    </h4>
+    <p>
+        Hijri date format <br />
+        type: <code>string</code>
+        <br />
+        default: <code>iYYYY-iMM-iDD</code>
+        <br />
+        values: <code>moment js format</code>
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-5" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        hijriFormat:'iD/iM/iYYYY'
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+<div class="section">
+    <h4>
+        locale
+    </h4>
+    <p>
+        picker language  <br />
+        type: <code>string</code>
+        <br />
+        default: <code>ar-SA</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-4" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        locale:'en-us'
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+<div class="section">
+    <h4>
+        minDate
+    </h4>
+    <p>
+        Min supported date is : <code>1950-01-01</code> <br />
+        type: <code>string</code>
+        <br />
+        default: <code>1950-01-01</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-6" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        viewMode: 'years',
+        minDate:'2018-01-15',
+        maxDate:'2020-05-06'
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+<div class="section">
+    <h4>
+        maxDate
+    </h4>
+    <p>
+        Max supported date is : <code>2070-01-01</code> <br/>
+        type: <code>string</code>
+        <br />
+        default: <code>2070-01-01</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-7" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        viewMode: 'years',
+        minDate: '2018-01-16',
+        maxDate: '2020-06-27'
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+<div class="section">
+    <h4>
+        viewDate
+    </h4>
+    <p>
+        Display default view date. In order to use it you must set <code>userCurrent: false</code> <br /> 
+        type: <code>string</code>
+        <br />
+        default: <code>2070-01-01</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-8" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        viewMode: 'years',
+        useCurrent: false,
+        viewDate:'1980-01-15'
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+<div class="section">
+    <h4>
+        useCurrent
+    </h4>
+    <p>
+        Set input with today date when datepicker popup <br />
+        type: <code>boolean</code>
+        <br />
+        default: <code>false</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-9" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        useCurrent: false
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+<div class="section">
+    <h4>
+        showSwitcher
+    </h4>
+    <p>
+        show switch Gregorian/Hijri dates button <br />
+        type: <code>boolean</code>
+        <br />
+        default: <code>true</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-10" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        showSwitcher: false
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+<div class="section">
+    <h4>
+        showClear
+    </h4>
+    <p>
+        show clear dates button <br />
+        type: <code>boolean</code>
+        <br />
+        default: <code>false</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-11" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        showClear: true
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+<div class="section">
+    <h4>
+        showClose
+    </h4>
+    <p>
+        show close button <br />
+        type: <code>boolean</code>
+        <br />
+        default: <code>false</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-12" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        showClose: true
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+<div class="section">
+    <h4>
+        showTodayButton
+    </h4>
+    <p>
+        show today button <br />
+        type: <code>boolean</code>
+        <br />
+        default: <code>false</code>
+        <br />
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-13" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        showTodayButton: true
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+<div class="section">
+    <h4>
+        icons
+    </h4>
+    <p>
+        change action text
+    </p>
+    <div class="form-group">
+
+        <div class="input-group">
+            <input id="picker-14" type="text" class="form-control" />
+        </div>
+    </div>
+    <figure class="highlight">
+        <pre>
+        <code class="javascript">
+    $('#picker').hijriDatePicker({
+        showTodayButton: true,
+        showClose: true,
+        showClear: true,
+        icons: {
+            previous: '<',
+            next: '>',
+            today: 'تاريخ اليوم',
+            clear: 'حذف',
+            close: 'اغلاق'
+        },
+        hijriText: "عرض التاريخ الهجري",
+        gregorianText: "عرض التاريخ الميلادي"
+    });
+        
+        </code>
+</pre>
+    </figure>
+
+</div>
+
+
+
+@section scripts{
+
+    <script src="~/js/docs.js"></script>
+}
