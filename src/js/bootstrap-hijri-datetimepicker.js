@@ -658,13 +658,11 @@
 
                 monthsView.find('.disabled').removeClass('disabled');
                 monthsViewHeader.eq(1).text(viewDate.iYear());
-                
-                if (!isValid(viewDate.clone().subtract(1, 'iYear'), 'y')) {
+
+                if (!isValidHijriYear(viewDate.clone().subtract(1, 'iYear').format('iYYYY'))) {
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
-
-
-                if (!isValid(viewDate.clone().add(1, 'iYear'), 'y')) {
+                if (!isValidHijriYear(viewDate.clone().add(1, 'iYear').format('iYYYY'))) {
                     monthsViewHeader.eq(2).addClass('disabled');
                 }
 
