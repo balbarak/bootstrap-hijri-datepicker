@@ -17,7 +17,7 @@ gulp.task('minify-js', ()=> {
     .pipe(minify({
       ext: {
         src: ".js",
-        min: "min.js"
+        min: ".min.js"
       }
     }))
     .pipe(gulp.dest('../dist/js'));
@@ -46,6 +46,7 @@ gulp.task('clean', () => {
 gulp.task('copy-samples', () => {
   return gulp.src(['../dist/css/*.css','../dist/js/*.js'])
     .pipe(gulpCopy('../samples/',{prefix:2}))
+    .pipe(gulpCopy('../doc/wwwroot/',{prefix:2}))
     .pipe(gulp.dest('../samples'));
 });
 

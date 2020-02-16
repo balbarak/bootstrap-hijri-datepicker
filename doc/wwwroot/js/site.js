@@ -1,4 +1,32 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(function () {
 
-// Write your Javascript code.
+    hljs.initHighlightingOnLoad();
+    initDefault();
+});
+
+function initDefault() {
+
+    $("#default-picker").hijriDatePicker();
+
+    $("#hijri-picker").hijriDatePicker({
+        hijri: true
+    });
+
+    $("#month-picker").hijriDatePicker({
+        hijri: true,
+        viewMode:'months'
+    });
+
+    $("#year-picker").hijriDatePicker({
+        hijri: true,
+        viewMode: 'years'
+    });
+
+    $("#all-button-picker").hijriDatePicker({
+        hijri: true,
+        viewMode: 'years',
+        showClose: true,
+        showClear: true,
+        showTodayButton: true
+    });
+}
