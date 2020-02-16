@@ -608,6 +608,21 @@
                 return result;
 
             },
+            isValidHijriMonth = function (targetMoment) {
+
+                if (!targetMoment.isValid())
+                    return;
+
+
+                let month = parseInt(targetMoment.format('iYYYYiMM'));
+                let maxDate = parseInt(options.maxDate.format('iYYYYiMM'));
+                let minDate = parseInt(options.minDate.format("iYYYYiMM"));
+
+                let result = month >= minDate && month <= maxDate;
+
+                return result;
+
+            },
 
             fillMonths = function () {
 
@@ -682,7 +697,7 @@
                         $(this).addClass('active');
                     }
 
-                    if (!isValidHijriDate(dateToValidate)) {
+                    if (!isValidHijriMonth(dateToValidate)) {
                         $(this).addClass('disabled');
                     }
                 });
