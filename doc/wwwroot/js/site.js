@@ -6,27 +6,14 @@
 
 function initDefault() {
 
-    $("#default-picker").hijriDatePicker();
-
-    $("#hijri-picker").hijriDatePicker({
-        hijri: true
-    });
-
-    $("#month-picker").hijriDatePicker({
+    $("#default-picker").hijriDatePicker({
+        locale:"ar-sa",
         hijri: true,
-        viewMode:'months'
-    });
-
-    $("#year-picker").hijriDatePicker({
-        hijri: true,
-        viewMode: 'years'
-    });
-
-    $("#all-button-picker").hijriDatePicker({
-        hijri: true,
-        viewMode: 'years',
+        viewMode: 'months',
         showClose: true,
         showClear: true,
-        showTodayButton: true
+        showTodayButton: true,
+        useCurrent:false,
+
     });
 }
