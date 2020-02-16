@@ -584,6 +584,31 @@
                 return true;
             },
 
+            isValidHijriYear = function (hijriYear) {
+
+                let year = parseInt(hijriYear);
+                let maxDate = parseInt(options.maxDate.format('iYYYY'));
+                let minDate = parseInt(options.minDate.format("iYYYY"));
+
+                return year >= minDate && year <= maxDate;
+
+            },
+            isValidHijriDate = function (targetMoment) {
+
+                if (!targetMoment.isValid())
+                    return;
+
+
+                let month = parseInt(targetMoment.format('iYYYYiMMiDD'));
+                let maxDate = parseInt(options.maxDate.format('iYYYYiMMiDD'));
+                let minDate = parseInt(options.minDate.format("iYYYYiMMiDD"));
+
+                let result = month >= minDate && month <= maxDate;
+
+                return result;
+
+            },
+
             fillMonths = function () {
 
                 var spans = [],
@@ -601,8 +626,9 @@
             },
 
             fillHijriMonths = function () {
-                var spans = [],
-                    monthsShort = viewDate.clone().startOf('hy').hour(12); // hour is changed to avoid DST issues in some browsers
+
+                let spans = [];
+                let monthsShort = viewDate.clone().startOf('hy').hour(12); // hour is changed to avoid DST issues in some browsers
 
 
                 let currentMonth = 1;
@@ -622,21 +648,21 @@
 
             updateHijriMonths = function () {
 
-                let monthsView = widget.find('.datepicker-months'),
-                    monthsViewHeader = monthsView.find('th'),
-                    months = monthsView.find('tbody').find('span');
+                let monthsView = widget.find('.datepicker-months');
+                let monthsViewHeader = monthsView.find('th');
+                let months = monthsView.find('tbody').find('span');
 
                 monthsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevYear);
                 monthsViewHeader.eq(1).attr('title', options.tooltips.selectYear);
                 monthsViewHeader.eq(2).find('span').attr('title', options.tooltips.nextYear);
 
                 monthsView.find('.disabled').removeClass('disabled');
-
+                monthsViewHeader.eq(1).text(viewDate.iYear());
+                
                 if (!isValid(viewDate.clone().subtract(1, 'iYear'), 'y')) {
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
 
-                monthsViewHeader.eq(1).text(viewDate.iYear());
 
                 if (!isValid(viewDate.clone().add(1, 'iYear'), 'y')) {
                     monthsViewHeader.eq(2).addClass('disabled');
@@ -644,37 +670,75 @@
 
                 months.removeClass('active');
 
-                if (date.isSame(viewDate, 'iM')) {
+                let currentViewDate = viewDate.clone();
+                let currentDateFormat = currentViewDate.format("iYYYY-iM") + "-01";
+                let currentDate = moment(currentDateFormat, 'iYYYY-iM-iD');
 
-                    let selectedMonth = date.format("iM");
+                months.each(function (index) {
 
-                    months.each(function (i) {
-                        if ($(this).attr('data-month') == selectedMonth) {
-                            $(this).addClass('active');
-                        }
-                    });
-                }
+                    let monthFormat = currentDate.format("iYYYY-") + (index + 1) + "-1";
+                    let dateToValidate = moment(monthFormat, "iYYYY-iM-iD");
+                    let selectedMonth = date.format('iM');
 
-                let hijriMonths = [];
-                let currentDate = viewDate.clone().month(0);
-                let currentYear = currentDate.format('iYYYY');
-
-                for (var i = 1; i < 13; i++) {
-                    let date = currentYear + '-' + i + '-15';
-                    hijriMonths.push(moment(date, "iYYYY-iM-iD"));
-                }
-
-                for (let i = 0; i < hijriMonths.length; i++) {
-                    let element = hijriMonths[i];
-                    let currentMonth = element.format("iM");
-                    let isValidMonth = isValid(element, "month");
-
-                    if (!isValidMonth) {
-                        months.filter('[data-month="' + currentMonth + '"]').addClass('disabled');
+                    if (date.isSame(viewDate, 'iM') && selectedMonth && $(this).attr('data-month') == selectedMonth) {
+                        $(this).addClass('active');
                     }
-                }
+
+                    if (!isValidHijriDate(dateToValidate)) {
+                        $(this).addClass('disabled');
+                    }
+                });
             },
 
+            updateHijriYears = function () {
+
+                let yearsView = widget.find('.datepicker-years');
+                let yearsViewHeader = yearsView.find('th');
+                let startYear = viewDate.clone().subtract(5, 'iYear');
+                let endYear = viewDate.clone().add(6, 'iYear');
+                let html = $('<div></div>');
+
+                yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevDecade);
+                yearsViewHeader.eq(1).attr('title', options.tooltips.selectDecade);
+                yearsViewHeader.eq(2).find('span').attr('title', options.tooltips.nextDecade);
+                yearsViewHeader.eq(1).text(startYear.iYear() + '-' + endYear.iYear());
+
+                yearsView.find('.disabled').removeClass('disabled');
+
+                if (options.minDate && options.minDate.isAfter(startYear, 'iy')) {
+
+                    yearsViewHeader.eq(0).addClass('disabled');
+                }
+
+
+                if (options.maxDate && options.maxDate.isBefore(endYear, 'iy')) {
+                    yearsViewHeader.eq(2).addClass('disabled');
+                }
+
+                if (startYear.iYear() == 1355)
+                    return;
+
+                while (!startYear.isAfter(endYear, 'y')) {
+
+                    let span = $('<span data-action="selectYear" class="year"></span>');
+                    let isActive = startYear.iYear() === date.iYear();
+                    let isDisabled = !isValidHijriYear(startYear.format('iYYYY'));
+
+                    span.html(startYear.iYear());
+
+                    if (isActive)
+                        span.addClass("active");
+
+                    if (isDisabled)
+                        span.addClass('disabled');
+
+                    html.append(span);
+
+                    startYear.add(1, 'iYear');
+                }
+
+                yearsView.find('td').html(html);
+            },
             updateMonths = function () {
                 let monthsView = widget.find('.datepicker-months'),
                     monthsViewHeader = monthsView.find('th'),
@@ -708,55 +772,6 @@
                     }
                 });
             },
-
-            updateHijriYears = function () {
-                var yearsView = widget.find('.datepicker-years'),
-                    yearsViewHeader = yearsView.find('th'),
-                    startYear = viewDate.clone().subtract(5, 'iYear'),
-                    endYear = viewDate.clone().add(6, 'iYear'),
-                    html = '';
-
-                yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevDecade);
-                yearsViewHeader.eq(1).attr('title', options.tooltips.selectDecade);
-                yearsViewHeader.eq(2).find('span').attr('title', options.tooltips.nextDecade);
-
-                yearsView.find('.disabled').removeClass('disabled');
-
-                if (options.minDate && options.minDate.isAfter(startYear, 'iy')) {
-
-                    //yearsViewHeader.eq(0).addClass('disabled');
-                }
-
-                yearsViewHeader.eq(1).text(startYear.iYear() + '-' + endYear.iYear());
-
-                if (options.maxDate && options.maxDate.isBefore(endYear, 'iy')) {
-                    //yearsViewHeader.eq(2).addClass('disabled');
-                }
-
-
-                while (!startYear.isAfter(endYear, 'hy')) {
-
-                    //here we need to fix the infinte loop
-
-                    var endYearStr = endYear.format("iYYYY");
-                    var startYearStr = startYear.format("iYYYY");
-
-                    if (endYearStr === "1500" || startYearStr === "1355") {
-
-                        startYear = viewDate.clone().subtract(5, 'iYear');
-                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
-                        break;
-                    }
-
-                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
-
-                    startYear.add(1, 'iYear');
-                }
-
-
-                yearsView.find('td').html(html);
-            },
-
             updateYears = function () {
 
                 var yearsView = widget.find('.datepicker-years'),
@@ -787,40 +802,6 @@
                 }
 
                 yearsView.find('td').html(html);
-            },
-
-            updateDecades = function () {
-                var decadesView = widget.find('.datepicker-decades'),
-                    decadesViewHeader = decadesView.find('th'),
-                    startDecade = moment({ y: viewDate.year() - (viewDate.year() % 100) - 1 }),
-                    endDecade = startDecade.clone().add(100, 'y'),
-                    startedAt = startDecade.clone(),
-                    html = '';
-
-                decadesViewHeader.eq(0).find('span').attr('title', options.tooltips.prevCentury);
-                decadesViewHeader.eq(2).find('span').attr('title', options.tooltips.nextCentury);
-
-                decadesView.find('.disabled').removeClass('disabled');
-
-                if (startDecade.isSame(moment({ y: 1900 })) || (options.minDate && options.minDate.isAfter(startDecade, 'y'))) {
-                    decadesViewHeader.eq(0).addClass('disabled');
-                }
-
-                decadesViewHeader.eq(1).text(startDecade.year() + '-' + endDecade.year());
-
-                if (startDecade.isSame(moment({ y: 2000 })) || (options.maxDate && options.maxDate.isBefore(endDecade, 'y'))) {
-                    decadesViewHeader.eq(2).addClass('disabled');
-                }
-
-                while (!startDecade.isAfter(endDecade, 'y')) {
-                    html += '<span data-action="selectDecade" class="decade' + (startDecade.isSame(date, 'y') ? ' active' : '') +
-                        (!isValid(startDecade, 'y') ? ' disabled' : '') + '" data-selection="' + (startDecade.year() + 6) + '">' + (startDecade.year() + 1) + ' - ' + (startDecade.year() + 12) + '</span>';
-                    startDecade.add(12, 'y');
-                }
-                html += '<span></span><span></span><span></span>'; //push the dangling block over, at least this way it's even
-
-                decadesView.find('td').html(html);
-                decadesViewHeader.eq(1).text((startedAt.year() + 1) + '-' + (startDecade.year()));
             },
 
             fillDate = function () {
@@ -1214,6 +1195,7 @@
                 },
 
                 selectYear: function (e) {
+
                     var year = parseInt($(e.target).text(), 10) || 0;
                     if (options.hijri) {
                         viewDate.iYear(year);

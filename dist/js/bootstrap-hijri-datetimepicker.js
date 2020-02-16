@@ -12429,10 +12429,10 @@
                 }
 
                 if (options.showSwitcher) {
-                    
+
                     let text = options.hijriText;
 
-                    if (options.hijri){
+                    if (options.hijri) {
                         text = options.gregorianText;
                     }
 
@@ -12731,7 +12731,8 @@
             },
 
             updateHijriMonths = function () {
-                var monthsView = widget.find('.datepicker-months'),
+
+                let monthsView = widget.find('.datepicker-months'),
                     monthsViewHeader = monthsView.find('th'),
                     months = monthsView.find('tbody').find('span');
 
@@ -12741,17 +12742,18 @@
 
                 monthsView.find('.disabled').removeClass('disabled');
 
-                if (!isValid(viewDate.clone().subtract(1, 'years'), 'y')) {
+                if (!isValid(viewDate.clone().subtract(1, 'iYear'), 'y')) {
                     monthsViewHeader.eq(0).addClass('disabled');
                 }
 
                 monthsViewHeader.eq(1).text(viewDate.iYear());
 
-                if (!isValid(viewDate.clone().add(1, 'y'), 'y')) {
+                if (!isValid(viewDate.clone().add(1, 'iYear'), 'y')) {
                     monthsViewHeader.eq(2).addClass('disabled');
                 }
 
                 months.removeClass('active');
+
                 if (date.isSame(viewDate, 'iM')) {
 
                     let selectedMonth = date.format("iM");
@@ -12763,15 +12765,28 @@
                     });
                 }
 
-                months.each(function (index) {
-                    if (!isValid(viewDate.clone().month(index), 'iM')) {
-                        $(this).addClass('disabled');
+                let hijriMonths = [];
+                let currentDate = viewDate.clone().month(0);
+                let currentYear = currentDate.format('iYYYY');
+
+                for (var i = 1; i < 13; i++) {
+                    let date = currentYear + '-' + i + '-15';
+                    hijriMonths.push(moment(date, "iYYYY-iM-iD"));
+                }
+
+                for (let i = 0; i < hijriMonths.length; i++) {
+                    let element = hijriMonths[i];
+                    let currentMonth = element.format("iM");
+                    let isValidMonth = isValid(element, "month");
+
+                    if (!isValidMonth) {
+                        months.filter('[data-month="' + currentMonth + '"]').addClass('disabled');
                     }
-                });
+                }
             },
 
             updateMonths = function () {
-                var monthsView = widget.find('.datepicker-months'),
+                let monthsView = widget.find('.datepicker-months'),
                     monthsViewHeader = monthsView.find('th'),
                     months = monthsView.find('tbody').find('span');
 
@@ -12807,8 +12822,8 @@
             updateHijriYears = function () {
                 var yearsView = widget.find('.datepicker-years'),
                     yearsViewHeader = yearsView.find('th'),
-                    startYear = viewDate.clone().subtract(5, 'hy'),
-                    endYear = viewDate.clone().add(6, 'hy'),
+                    startYear = viewDate.clone().subtract(5, 'iYear'),
+                    endYear = viewDate.clone().add(6, 'iYear'),
                     html = '';
 
                 yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevDecade);
@@ -12817,15 +12832,15 @@
 
                 yearsView.find('.disabled').removeClass('disabled');
 
-                if (options.minDate && options.minDate.isAfter(startYear, 'hy')) {
+                if (options.minDate && options.minDate.isAfter(startYear, 'iy')) {
 
-                    yearsViewHeader.eq(0).addClass('disabled');
+                    //yearsViewHeader.eq(0).addClass('disabled');
                 }
 
                 yearsViewHeader.eq(1).text(startYear.iYear() + '-' + endYear.iYear());
 
-                if (options.maxDate && options.maxDate.isBefore(endYear, 'hy')) {
-                    yearsViewHeader.eq(2).addClass('disabled');
+                if (options.maxDate && options.maxDate.isBefore(endYear, 'iy')) {
+                    //yearsViewHeader.eq(2).addClass('disabled');
                 }
 
 
@@ -12838,12 +12853,12 @@
 
                     if (endYearStr === "1500" || startYearStr === "1355") {
 
-                        startYear = viewDate.clone().subtract(5, 'hy');
-                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                        startYear = viewDate.clone().subtract(5, 'iYear');
+                        html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
                         break;
                     }
 
-                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'hy') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
+                    html += '<span data-action="selectYear" class="year' + (startYear.iYear() === date.iYear() ? ' active' : '') + (!isValid(startYear, 'y') ? ' disabled' : '') + '">' + startYear.iYear() + '</span>';
 
                     startYear.add(1, 'iYear');
                 }
@@ -14232,10 +14247,11 @@
         };
 
         picker.isRTL = function () {
+
             if (options.isRTL) {
-                options.icons.next = ">";
-                options.icons.previous = "<";
+                //todo what goes here
             }
+
             return options.isRTL;
         };
 
@@ -15044,7 +15060,7 @@
         viewDate: false,
         hijri: false,
         isRTL: false,
-        hijriText:"هجري",
-        gregorianText:"ميلادي"
+        hijriText: "هجري",
+        gregorianText: "ميلادي"
     };
 }));
