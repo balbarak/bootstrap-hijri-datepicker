@@ -9,6 +9,7 @@ See  [Live Demo](http://hijri-datepicker.azurewebsites.net/)
 
 ## Installation
 
+Download the [latest release](https://github.com/balbarak/bootstrap-hijri-datepicker/releases) or
 Use css and javascript files in `dist` folder
 
 ### Required libraries
