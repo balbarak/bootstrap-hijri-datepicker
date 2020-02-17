@@ -1,11 +1,11 @@
+# Demo
+See  [Live Demo](http://hijri-datepicker.azurewebsites.net/)
+
 # Getting Started
 Bootstrap Hijri Date picker v1.0.0
 
 ![sample](http://files.balbarak.com/file/598299)
 ![sample two](http://files.balbarak.com/file/58464)
-
-## Demo
-See  [Live Demo](http://hijri-datepicker.azurewebsites.net/)
 
 ## Installation
 
