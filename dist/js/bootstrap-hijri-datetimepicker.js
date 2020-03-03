@@ -13839,7 +13839,7 @@
             ///<summary>Destroys the widget and removes all attached event listeners</summary>
             hide();
             detachDatePickerElementEvents();
-            element.removeData('DateTimePicker');
+            element.removeData('HijriDatePicker');
             element.removeData('date');
         };
 
