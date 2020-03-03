@@ -13839,7 +13839,7 @@
             ///<summary>Destroys the widget and removes all attached event listeners</summary>
             hide();
             detachDatePickerElementEvents();
-            element.removeData('DateTimePicker');
+            element.removeData('HijriDatePicker');
             element.removeData('date');
         };
 
@@ -14876,7 +14876,7 @@
         maxDate: '2070-01-01',
         extraFormats: false,
         stepping: 1,
-        useCurrent: true,
+        useCurrent: false,
         collapse: true,
         locale: 'ar-SA',
         defaultDate: false,
