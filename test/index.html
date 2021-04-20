@@ -40,20 +40,23 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
-    <script src="./js/bootstrap-hijri-datetimepickermin.js"></script>
+    <script src="./js/bootstrap-hijri-datetimepicker.js"></script>
 
     <script type="text/javascript">
 
         $(function () {
-            
+
             initDefault();
 
         });
 
         function initDefault() {
             $("#hijri-picker").hijriDatePicker({
-                hijri:true,
-                showSwitcher:false
+                hijri: false,
+                locale: 'en-US',
+                showTodayButton: true,
+                showClose: true,
+                showClear: true,
             });
         }
 

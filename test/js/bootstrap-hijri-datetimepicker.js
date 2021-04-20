@@ -14866,6 +14866,10 @@
         });
     };
 
+    $.fn.hijriDatePicker.test = function(){
+        alert('ee');
+    };
+
     $.fn.hijriDatePicker.defaults = {
         timeZone: 'Etc/UTC',
         format: 'DD-MM-YYYY',
