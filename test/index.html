@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>
+        Bootstrap Hijri Date Picker
+    </title>
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Bootstrap Hijri Date Picker v1.0.0</h2>
+            <p class="lead">
+
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label>
+                        Default Hijir
+                    </label>
+                    <input id="hijri-picker" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="./js/bootstrap-hijri-datetimepickermin.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            
+            initDefault();
+
+        });
+
+        function initDefault() {
+            $("#hijri-picker").hijriDatePicker({
+                hijri:true,
+                showSwitcher:false
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
