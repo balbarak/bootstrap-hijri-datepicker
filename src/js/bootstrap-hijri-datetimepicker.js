@@ -560,7 +560,7 @@
                 if (options.maxDate && targetMoment.isAfter(options.maxDate, granularity)) {
                     return false;
                 }
-                if (options.daysOfWeekDisabled && granularity === 'd' && options.daysOfWeekDisabled.indexOf(targetMoment.day()) !== -1) {
+                if (options.daysOfWeekDisabled && granularity === 'days' && options.daysOfWeekDisabled.indexOf(targetMoment.day()) !== -1) {
                     return false;
                 }
                 if (options.disabledHours && (granularity === 'h' || granularity === 'm' || granularity === 's') && isInDisabledHours(targetMoment)) {
